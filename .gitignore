@@ -34,4 +34,4 @@ node_modules
 Icon
 
 # jsx build files
-public/javascripts/react-build/
+public/javascripts/react-build/.module-cache
