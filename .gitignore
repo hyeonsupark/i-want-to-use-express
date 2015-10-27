@@ -32,3 +32,6 @@ node_modules
 
 # Icon must end with two \r
 Icon
+
+# jsx build files
+public/javascripts/react-build/
