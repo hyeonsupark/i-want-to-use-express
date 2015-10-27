@@ -9,4 +9,8 @@ router.get('/', function(req, res, next) {
 	res.render('index');
 });
 
+router.get('/react', function(req, res) {
+	res.render('react');
+});
+
 module.exports = router;
