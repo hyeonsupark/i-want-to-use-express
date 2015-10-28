@@ -1,16 +1,34 @@
-
-var data = [
-	{id: 1, author: "Pete Hunt", text: "댓글입니다"},
-	{id: 2, author: "Jordan Walke", text: "*또 다른* 댓글입니다"}
-];
+//var React = require('react');
+//var ReactDOM = require('react-dom');
 
 
 var CommentBox = React.createClass({displayName: "CommentBox",
+	loadCommentsFromServer: function() {
+		$.ajax({
+			url: this.props.url,
+			method: 'POST',
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				this.setState({data: data});
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.error(this.props.url, status, err.toString());
+			}.bind(this)
+		});
+	},
+	getInitialState: function() {
+		return {data: []};	
+	},
+	componentDidMount: function() {
+		this.loadCommentsFromServer();
+		setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+	},
 	render: function() {
 		return (
 			React.createElement("div", {className: "commentBox"}, 
 				React.createElement("h1", null, "댓글"), 
-				React.createElement(CommentList, {data: this.props.data}), 
+				React.createElement(CommentList, {data: this.state.data}), 
 				React.createElement(CommentForm, null)
 			)
 		);
@@ -37,9 +55,11 @@ var CommentList = React.createClass({displayName: "CommentList",
 var CommentForm = React.createClass({displayName: "CommentForm",
 	render: function() {
 		return (
-			React.createElement("div", {className: "commentForm"}, 
-				"Hello, I am a CommentForm"
-			)
+			React.createElement("form", {className: "commentForm"}, 
+				React.createElement("input", {type: "text", placeholder: "이름"}), 
+				React.createElement("input", {type: "text", placeholder: "내용을 입력하세요..."}), 
+				React.createElement("input", {type: "submit", value: "올리기"})
+			)	
 		);
 	}
 });
@@ -58,4 +78,4 @@ var Comment = React.createClass({displayName: "Comment",
 	}
 });
 
-React.render(React.createElement(CommentBox, {data: data}), document.getElementById('content'));
+React.render(React.createElement(CommentBox, {url: "http://localhost:3000/comments", pollInterval: 2000}), document.getElementById('content'));

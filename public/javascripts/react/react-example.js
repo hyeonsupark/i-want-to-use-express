@@ -1,16 +1,34 @@
-
-var data = [
-	{id: 1, author: "Pete Hunt", text: "댓글입니다"},
-	{id: 2, author: "Jordan Walke", text: "*또 다른* 댓글입니다"}
-];
+//var React = require('react');
+//var ReactDOM = require('react-dom');
 
 
 var CommentBox = React.createClass({
+	loadCommentsFromServer: function() {
+		$.ajax({
+			url: this.props.url,
+			method: 'POST',
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				this.setState({data: data});
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.error(this.props.url, status, err.toString());
+			}.bind(this)
+		});
+	},
+	getInitialState: function() {
+		return {data: []};	
+	},
+	componentDidMount: function() {
+		this.loadCommentsFromServer();
+		setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+	},
 	render: function() {
 		return (
 			<div className="commentBox">
 				<h1>댓글</h1>
-				<CommentList data={this.props.data}/>
+				<CommentList data={this.state.data}/>
 				<CommentForm />
 			</div>
 		);
@@ -37,9 +55,11 @@ var CommentList = React.createClass({
 var CommentForm = React.createClass({
 	render: function() {
 		return (
-			<div className="commentForm">
-				Hello, I am a CommentForm
-			</div>
+			<form className="commentForm">
+				<input type="text" placeholder="이름" />
+				<input type="text" placeholder="내용을 입력하세요..." />
+				<input type="submit" value="올리기" />
+			</form>	
 		);
 	}
 });
@@ -58,4 +78,4 @@ var Comment = React.createClass({
 	}
 });
 
-React.render(<CommentBox data={data}/>, document.getElementById('content'));
+React.render(<CommentBox url="http://localhost:3000/comments" pollInterval={2000}/>, document.getElementById('content'));
