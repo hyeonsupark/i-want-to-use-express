@@ -1,6 +1,5 @@
 var express = require('express');
 var http = require('http').Server(express);
-var io = require( "socket.io" )(http);
 
 var router = express.Router();
 
@@ -13,10 +12,10 @@ router.get('/react', function(req, res) {
 	res.render('react');
 });
 
-router.post('/comments', function(req, res) {
+router.get('/comments', function(req, res) {
 	var data = [
-		{id: 1, author: "Pete Hunt", text: "댓글입니다"},
-		{id: 2, author: "Jordan Walke", text: "*또 다른*zzzzz"}
+		{id: 1, author: "Pete", text: "댓글입니다"},
+		{id: 2, author: "Jordan Walke", text: "그러하다"}
 	];
 	res.json(data, 200);	
 });

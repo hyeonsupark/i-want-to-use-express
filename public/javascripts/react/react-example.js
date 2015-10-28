@@ -6,7 +6,7 @@ var CommentBox = React.createClass({
 	loadCommentsFromServer: function() {
 		$.ajax({
 			url: this.props.url,
-			method: 'POST',
+			method: 'GET',
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
@@ -39,9 +39,7 @@ var CommentList = React.createClass({
 	render: function() {
 		var commentNodes = this.props.data.map(function (comment) {
 			return (
-				<Comment key={comment.id} comment={comment}>
-					{comment.text}
-				</Comment>
+				<Comment key={comment.id} comment={comment}/>
 			);
 		});
 		return (
@@ -78,4 +76,4 @@ var Comment = React.createClass({
 	}
 });
 
-React.render(<CommentBox url="http://localhost:3000/comments" pollInterval={2000}/>, document.getElementById('content'));
+ReactDOM.render(<CommentBox url="http://localhost:3000/comments" pollInterval={2000}/>, document.getElementById('content'));
