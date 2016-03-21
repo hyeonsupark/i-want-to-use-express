@@ -3,6 +3,11 @@ var http = require('http').Server(express);
 
 var router = express.Router();
 
+var data = [
+		{id: 1, author: "jungle", text: "potato is my love"},
+		{id: 2, author: "hyeonsu", text: "oh no"}
+	];
+var id = 2;
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index');
@@ -13,10 +18,15 @@ router.get('/react', function(req, res) {
 });
 
 router.get('/comments', function(req, res) {
-	var data = [
-		{id: 1, author: "Pete", text: "댓글입니다"},
-		{id: 2, author: "Jordan Walke", text: "그러하다"}
-	];
-	res.json(data, 200);	
+	res.status(200).json(data);	
+});
+
+router.post('/comments', function(req, res) {
+	console.log(req.body);
+	id++;
+	var author = req.body.author;
+	var text = req.body.text;
+	data.push({id: id, author: author, text: text});
+	res.status(200).json({id: id, author: author, text: text});
 });
 module.exports = router;
