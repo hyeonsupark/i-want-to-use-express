@@ -52,14 +52,12 @@
       // Meta data event
       self.videoEl.addEventListener('loadedmetadata', self._resize, false);
 
-      // Fired when enough has been buffered to begin the video
-      // self.videoEl.readyState === 4 (HAVE_ENOUGH_DATA)
       self.videoEl.addEventListener('ended', function () {
-
-        // Play the video when enough has been buffered
         self.run();
       });
 
+      // Fired when enough has been buffered to begin the video
+      // self.videoEl.readyState === 4 (HAVE_ENOUGH_DATA)
       self.videoEl.addEventListener('canplay',  function() {
         self.opt.onLoad && self.opt.onLoad();
       });
