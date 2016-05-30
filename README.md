@@ -15,8 +15,7 @@
 
 ## 앞으로 알아야 할 점
 
-* [require.js](http://www.requirejs.org/)
-
+* [x] [require.js](http://www.requirejs.org/)
 
 ## 주저리주저리
 잠깐 계층을 보자면 body -> content -> commentBox -> commentList -> comment 이렇게 되어있다.
@@ -141,4 +140,5 @@ react는 XSS를 예방하기위해 raw html을 escaping한다.
 
 ### 급 마무리
 
-사실 입력창은 만들어두고 서버단에서 처리하기 귀찮아 안했다.
+~~사실 입력창은 만들어두고 서버단에서 처리하기 귀찮아 안했다.~~
+가볍게 처리함..
