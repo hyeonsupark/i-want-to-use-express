@@ -1,0 +1,28 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    height:100%;
+    text-align: center;
+    color: white;
+}
+
+.container .centered {
+    font-family: 'fira-sans-2', Helvetica, sans-serif;
+    font-weight: 500;
+}
+
+.container .centered #time {
+    font-size: 4rem;
+}
