@@ -4,7 +4,7 @@
 
 - [/fcm](https://soh.ee/fcm) Firebase Cloud Message 테스트.. 실제로 푸시가감
 - [/time](https://soh.ee/time) 시간마다 배경 바뀌는 사이트보고 나도 한번 해보자..! 하고 만듦..
-- [/live](https://wearedoing.party/live) 페이스북 Live api 해둔 페이지
+- [/live](https://soh.ee/live) 페이스북 Live api 해둔 페이지
 
 #### node.js를 공부하기 위해 만든 repo지만 하는김에 react도 공부했다.
 
