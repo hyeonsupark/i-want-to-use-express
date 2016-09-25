@@ -25,6 +25,17 @@ module.exports = function (http, connection) {
       }, function (error, results, fields) {
       });
 
+      // Set nickname color
+      var hash = 0;
+      for (var i = 0; i < msg['nickname'].length; i++) {
+        hash = msg['nickname'].charCodeAt(i) + ((hash << 5) - hash);
+      }
+      var r = (((hash)           & 0xAF) + 0x10).toString(16).toUpperCase();
+      var g = (((hash * 19)      & 0xAF) + 0x10).toString(16).toUpperCase();
+      var b = (((hash * 19 * 19) & 0xAF) + 0x10).toString(16).toUpperCase();
+      var color = '#' + r + g + b;
+      msg['color'] = color;
+
       // BR
       io.emit('recieve message', msg);
     });
