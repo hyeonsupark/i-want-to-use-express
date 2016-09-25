@@ -16,13 +16,16 @@ module.exports = function (http, connection) {
       'message': 'ㅓ어아!! 난 현수얌'
     }
     socket.on('send message', function(msg) {
+      var timestamp = Math.floor(new Date().getTime() / 1000);
+
       // Logging
       // console.log('# Message: ' + msg);
       connection.query({
-        'query': 'INSERT INTO `chat` (`nickname`, `message`) VALUES (?, ?)',
-        'values': [ msg['nickname'], msg['message'] ],
+        'sql': 'INSERT INTO `chat` (`nickname`, `message`, `created_time`) VALUES (?, ?, FROM_UNIXTIME(?))',
+        'values': [ msg['nickname'], msg['message'], timestamp ],
         'timeout': 10000
-      }, function (error, results, fields) {
+      }, function (error, rows, fields) {
+        if (error) console.log(error);
       });
 
       // Set nickname color
@@ -35,6 +38,9 @@ module.exports = function (http, connection) {
       var b = (((hash * 19 * 19) & 0xAF) + 0x10).toString(16).toUpperCase();
       var color = '#' + r + g + b;
       msg['color'] = color;
+
+      // Add timestamp
+      msg['timestamp'] = timestamp;
 
       // BR
       io.emit('recieve message', msg);
