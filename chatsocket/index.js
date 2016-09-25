@@ -43,7 +43,8 @@ module.exports = function (http, connection) {
       msg['timestamp'] = timestamp;
 
       // BR
-      io.emit('recieve message', msg);
+      io.emit('receive message', msg);
+      console.log(msg);
     });
   });
 
