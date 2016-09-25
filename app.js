@@ -28,6 +28,16 @@ app.use('/live', live);
 app.use('/time', time);
 app.use(require('express-status-monitor')());
 
+var config = require('./config');
+
+
+// Chat Chat
+var http = require('http').Server(app);
+var mysql = require('mysql');
+var connection = mysql.createConnection(config.datasource);
+var chatio = require('./chatsocket')(http, connection);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	var err = new Error('Not Found');
