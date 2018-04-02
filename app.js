@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/live', live);
-app.use('/time', time);
+app.use('/army', time);
 app.use(require('express-status-monitor')());
 
 var config = require('./config');

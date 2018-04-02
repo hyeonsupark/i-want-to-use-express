@@ -7,7 +7,7 @@ module.exports = function (http, connection) {
 
   // On Connect
   io.on('connection', function(socket) {
-    // console.log('### A user connected');
+     console.log('### A user connected');
 
     // On recieve message
     // Example
